@@ -1,4 +1,2 @@
 1.hello
-2.git wirte test
-3.스테이징과 커밋을 한거번에 처리
-  : git commit -am
+2.git wirte test:
