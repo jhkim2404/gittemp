@@ -1,0 +1,67 @@
+3. 깃과 브런치
+
+  3-1. 브랜치란?
+
+  1. 브랜치가 필요한 이유
+    -. 우리가 어떤 제품을 만들때 사용설명서의 버전 관리는 깃으로 하고, 제품출시전에는 개발 순서에 따라 사용설명서를 작성하면 된다.
+    -. 하지만, 제품이 출시되고 나면 문제가 생긴다. 고객사마다 추가로 요구하는 내용이 다른며, 요구 사항을 반영하다 보면 고객사에 따라
+       제품이 달라질 것이고, 이에 맞춰 사용 설명서도 달라져야 한다.
+    -. 먼저 떠오르는 해결책은 처음에 작업했던 저장소 전체를 여러 개 복사해서 각 고객사의 이름을 붙인 다음 저장소마다 버전 관리를 따로 하는 방법이 
+       있지만 이 방법은 효율적이지 않다.
+    -. 먼저 고객사마다 디렉토리를 복사하면 출시 전까지 만들었던 내용은 동일하기 때문에 자료가 중복된다.
+    -. 버전 관리 시스템의 장점 중 하나는 파일 이름을 더럽히지 않는 것인데, 이 방법은 고객사마다 디렉터리 이름을 다르게 사용해야 한다.
+    -. 수정한 내용이 의도치 않게 바뀌거나 사라질 겁니다.
+
+  2. 브랜치 기능 살펴보기
+    -. git으로 버전 관리를 시작하면 기본적으로 master라는 브랜치가 만들어 진다.
+    -. 브랜치는 커밋을 가리키는 포인터와 비슷하다.
+    -. 새 브랜치를 만들면 기존에 저장한 파일을 master 브랜치에 그대로 유지하면서 기존 파일 내용을 수정하거나 새로운 기능을 구현할 파일을
+      만들 수 있다.
+    -. 이렇게 master 브랜치에서 뻗어 나오는 새 브랜치를 만드는 것을 분기(branch)한다 라고 한다.
+    -. 새 브랜치에서 원하는 작업을 다 끝냈다면 새 브랜치에 있던 파일을 원래 master 브랜치에 합칠 수 있다.
+    -. 이렇게 분기해던 브랜치를 master 브랜치와 합치는 것을 병합(merge)한다 라고 한다.
+
+  3-2. 브랜치 만들기
+
+  1. git에서 브랜치를 만들거나 확인하는 명령은 git branch이다.
+    -. master는 특별한 브랜치이다. 저장소 만들때 기본적으로 master가 만들어 진다.
+    -. 새로운 브랜치를 만들려면 git branch 명령 다음에 만들려는 브랜치 이름을 적습니다.
+    -. master 앞에 * 표시는 아직 우리가 master 브랜치에서 작업하고 있다는 뜻입니다.
+    -. 브랜치가 추가된 후에는 커밋 로그 화면도 다르게 나타납니다.
+      : 예시 
+        $ git log
+        commit 1a7d67fee24888938fd5caf4acd132a9adbfc2e4 (HEAD -> master, jhkim2404, jhkim)
+
+  2. 브랜치 사이 이동하기
+    -. master 브랜치에 새로운 커밋이 추가되었는데 로그가 어떻게 바뀌었는지 git log 명령에 --oneline 옵션을 추가해서 확인한다.
+      : 예시
+        $ git log --oneline
+        1a7d67f (HEAD -> jhkim, master, jhkim2404) jhkim contents add 2
+        85a2e7b jhkim contents add
+        8cb2091 jhkim work.txt create
+    -. 현재 브랜치에서 다른 브랜치로 이동하려면 git checkout 명령 다음에 브랜치 이름을 사용한다.
+    -. 파일 수정 후 커밋을 하고 git log --oneline 명령으로 커밋 로그에 jhkim 브랜치에서 작업한 이력을 확인할 수 있다.
+      : 예시
+        $ git log --oneline
+        19dbbe2 (HEAD -> jhkim) jhkim git checkout jhkim do
+    -. jhkim2404 브랜치에서 커밋 로그를 확인 해 보면 jhkim 브랜치에서 작업한 내역을 확인할 수 없다.
+      : 예시
+        $ git checkout jhkim2404
+        Switched to branch 'jhkim2404'
+
+        jhkim@DESKTOP-HVM9KTK MINGW64 /c/gittemp/branch_test (jhkim2404)
+        $ git log --oneline
+        1a7d67f (HEAD -> jhkim2404, master) jhkim contents add 2
+        85a2e7b jhkim contents add
+        8cb2091 jhkim work.txt create
+
+        jhkim@DESKTOP-HVM9KTK MINGW64 /c/gittemp/branch_test (jhkim2404)
+        $ cat work.txt
+        1. work.txt create
+        2. contents add 1
+        3. contents add 2
+
+  3. 브랜치 정보 확인하기
+    
+    1. 새브랜치에서 커밋하기
+    
