@@ -1,0 +1,234 @@
+git 정리
+
+1. 설치
+  1) 설치 사이트 주소 : http://git-scm.com/download/win
+  2) 설치 주의 사항
+    -. 설치시 윈도우 버전으로 설치.
+  3) 설치 후 MINGW64 실행
+    -. 리눅스 환경 명령어 참고
+
+2. 사용법
+  1) git 사용 폴더 생성 
+    -. mkdir gittemp
+  2) git 초기화 
+    -. git init
+      : $ git init
+         Initialized empty Git repository in C:/gittemp/.git/
+    -. ls -al git 디렉토리 생성 확인
+    -. 사용자 환경설정 
+      : git config --global user.email "jhkim2404@gmail.com"
+      : git config --global user.name "jhkim"
+
+3. 버전 만들기 
+  1) 버전이란 
+    -. git 에서 문서를 저장, 수정할때 생기는 이력
+  2) 스테이지 와 커밋
+    -. 작업트리
+      : 파일수정, 저장 등의 작업을 하는 디렉토리
+    -. 스테이지
+      : 버전으로 만들 파일이 대기하는 곳
+    -. 저장소
+      : 스테이지에서 대기하고 있던 파일들을 버전으로 만들어 저장하는 곳
+    -. 스테이지와 저장소 눈에 보이 않음.
+    -. git init 생성되는 git 디렉토리에 숨어 있음.
+    -. 정리
+      : 문서작성 > 작업 트리에 저장 > 문서 수정 > 스테이지에 저장 > 커밋 > 저장소에 저장
+  3) git status
+    -. git 상태 확인
+    -. On branch master : 현재 master 브랜치에 있음
+    -. No commits yet : 아직 커밋 없음.
+    -. nothing added to commit but untracked files present (use "git add" to track)
+      : 커밋 파일 없음.
+  4) git add 파일명
+    -. 작업트리에서 파일을 만들거나 수정했다면 스테이지에 수정한 파일을 추가 : 스테이징
+    -. git status로 확인시 커밋 할것이라는 Changes to be committed: 구문 확인 됨.
+  5) git commit -옵션코드 옵션value
+    -. 파일이 스테이지에 있다면 버전을 만들수 있음. : 커밋
+    -. git commit -m "message 1234"
+      : commit 메세지를 입력함.
+    -. git status로 상태 확인시 Changes to be committed: 완료 메세지 확인
+    -. git log로 커밋 이력을 확인해 볼 수 있음.
+   6) 스테이징과 커밋 한꺼번에 처리하기 
+    -. commit 명령어에 -am 옵션을 사용하면 스테이지에 올리고 커밋하는 과정을 한꺼번에 처리할 수 있음.
+    -. 한번이라도 커밋한 파일을 커밋할때 사용할 수 있음.
+    -. git commit -am "messge 2di3f" 
+   7) 커밋 내용 확인하기 : git log
+    -. 커밋 해시
+      : commit이라는 항목 옆에 영문과 숫자로 된 긴 문자열
+      : 커밋을 구별하는 식별자, 아이디. 
+      : commit 5f2950efbab1382322c803ef9e7d6ed9ecf846b9 
+    -. 가장 최신버전 표시
+      : (HEAD -> master)
+    -. 작성자
+      : Author 항목에는 버전을 누가 만들었는지 표시
+      : Author: jhkim <jhkim2404@gmail.com>
+    -. 버전 만든 날짜
+      : 버전이 언제 만들어 졌는지 표시
+      : Date:   Sat Jul 2 13:27:36 2022 +0900
+    -. 커밋로그
+      : git log 명령을 입력했을때 나오는 정보를 묶어 간단히 커밋로그라고 함.
+      : Author: jhkim <jhkim2404@gmail.com>
+        Date:   Sat Jul 2 13:20:53 2022 +0900
+            jhkim 2022-07-02 13:27 update
+    -. 커밋 메세지
+      : jhkim 2022-07-02 13:27 update
+  8) 변경사항 확인하기
+    -. git diff 명령어를 사용하여 작업트리에는 있는 파일과 스테이지에 있는 파일을 비교하거나,
+      스테이지에 있는 파일과 저장소에 있는 최신 커밋을 비교해서 수정한 파일을 커밋하기전에 검토할 수 있음.
+    -. 변경사항 확인
+      $ git diff
+      warning: in the working copy of 'hello.txt', LF will be replaced by CRLF the next time Git touches it
+      diff --git a/hello.txt b/hello.txt
+      index 550d2fc..ac3c508 100644
+      --- a/hello.txt
+      +++ b/hello.txt
+      @@ -2,3 +2,4 @@
+       2.git wirte test
+       3.스테이징과 커밋을 한거번에 처리
+         : git commit -am
+      +4.change history confirm
+   -. +4.change history confirm 은 내용이 추가 되었다는 표시
+
+4. 버전 만드는 단계마다 파일 상태 알아보기
+  깃에서 버전을 만드는 각 단계마다 파일 상태를 다르게 표시한다. 그래서 파일의 상태를 이해 하면 이 파일이 버전 관리의 여러 
+  단계중 어디에 있는지, 그 상태에서 어떤 일을 할 수 있는지 알 수 있다. 하지만 파일의 상태가 눈에 보이는 것이 아니기 때문에
+  머릿속으로만 떠올려야 한다. 지금 당장 이해하기가 어렵다면 사용이 좀 더 익숙해진 후에 다시 이 내용을 살펴보면 도움이 될 것이다.
+
+  1) tracked 파일과 untracked 파일
+    -. 파일 수정 후 git status 명령어로 상태를 확인 해 보면 Changes not staged for commit: 이라고 되어 있음.
+    -. 변경된 파일이 스테이지에 아직 올라오지 않았다는 메세지
+    -. 파일 이름앞에 modified 되어 있어 파일 수정되었다는 것을 알수 있음.
+    -. git은 한번이라도 커밋한 파일의 수정 여부를 계속 추적함.
+    -. git이 추적하고 있다는 뜻에서 tracked 파일이라고 부름.
+    -. 한번도 git에서 버전 관리를 하지 않았기 때문에 수정 내역을 추적하지 않음.
+      : 예시
+       $ git status
+       On branch master
+       Changes not staged for commit:
+         (use "git add <file>..." to update what will be committed)
+         (use "git restore <file>..." to discard changes in working directory)
+               modified:   hello.txt
+
+       Untracked files:
+         (use "git add <file>..." to include in what will be committed)
+               hello_2.txt
+
+       no changes added to commit (use "git add" and/or "git commit -a")
+    -. 수정한 파일은 git add 명령어을 사용하여 스테이지에 올릴 수 있습니다.
+      : git status 명령어로 상태를 확인 해 보면 hello.txt 파일은 modified로 표시되어 있고
+        hello_2.txt 파일은 new file 로 표시되어 있음.
+      : tracker, untracker 파일 모두가 스테이지에 올라와 있음.
+      : 예시
+        $ git status
+        On branch master
+        Changes to be committed:
+          (use "git restore --staged <file>..." to unstage)
+                modified:   hello.txt
+                new file:   hello_2.txt
+    -. 커밋 후 git log 확인해 보면 각 커밋에 어떤 파일들이 관련 것인지 알 수는 없다.
+      : 예시
+        jhkim@DESKTOP-HVM9KTK MINGW64 /c/gittemp (master)
+        $ git commit -m "jhkim 2022-07-02 14:05 tracker untracker confirm "
+        [master 4a18ee3] jhkim 2022-07-02 14:05 tracker untracker confirm
+         2 files changed, 2 insertions(+)
+         create mode 100644 hello_2.txt
+
+        jhkim@DESKTOP-HVM9KTK MINGW64 /c/gittemp (master)
+        $ git log
+        commit 4a18ee373147a678103c7fe189f5118034dba740 (HEAD -> master)
+        Author: jhkim <jhkim2404@gmail.com>
+        Date:   Sat Jul 2 14:06:00 2022 +0900
+
+            jhkim 2022-07-02 14:05 tracker untracker confirm
+
+        commit 874f69814bf3376ff9c76417fd41acdfe749a67a
+        Author: jhkim <jhkim2404@gmail.com>
+        Date:   Sat Jul 2 13:44:41 2022 +0900
+
+            jhkim 2022-07-02 diff func confirm
+
+        commit 5f2950efbab1382322c803ef9e7d6ed9ecf846b9
+        Author: jhkim <jhkim2404@gmail.com>
+        Date:   Sat Jul 2 13:27:36 2022 +0900
+
+            jhkim 2022-07-02 13:27 update
+
+        commit 474e03e8995559a6d7fe920a0d6d8154b7f8a591
+        Author: jhkim <jhkim2404@gmail.com>
+        Date:   Sat Jul 2 13:20:53 2022 +0900
+
+            jhkim 2022-07-02 doc create
+    -. 커밋에 관련 파일까지 살펴 보려면 git log 명령어에 --stat 옵션을 사용한다.
+      : 가장 최근의 커밋부터 순서대로 커밋 메세지와 관련 파일이 나열됨.
+  2) unmodified, modified, staged 상태
+    -. 파일이 수정되지 않은 상태 : unmodified  
+      : git status 
+         > nothing to commit, working tree clean 
+    -. 파일 수정된 상태 : modified
+      : git status
+         > Changes not staged for commit:
+    -. 작업트리의 문서를 수정 후 스테이지에 add한 상태 : staged
+      : git status
+         > Changes to be committed:
+    -. 커밋 후 git status는 unmodified 상태로 돌아감.
+    -. 단계
+      : untracked > unmodified > modified > staged
+  3) 방금 커밋한 메세지 수정하기
+    -. git commit --amend
+
+5. 작업 되돌리기
+  1) 작업트리에서 수정한 파일 되돌리기 - git checkout
+     -. 파일을 수정한 뒤 소스가 정상적으로 동작하지 않는 등의 이유로 
+        수정한 내용을 취소하고 가장 최신 버전 상태로 되돌려야 할 때가 있다.
+        일일히 수정한 소스를 찾아서 직접 되돌려야 하는 번거로운 작업 발생함.
+        이럴 때 checkout 명령을 사용하면 작업 트리에서 수정한 내용을 쉽게 취소할 수 있음.
+     -. git checkout -- 파일명
+      : 파일을 수정 후 git status로 unmodified 상태 확인
+        Changes not staged for commit:
+      : git checkout 명령 다음에 붙임표 2개(--)를 붙이고 한 칸 띈 다음 파일 이름 쓴다.
+        git checkout -- git_info.txt
+   2) 스테이징 되돌리기 - git reset HEAD 파일이름
+    -. 수정된 파일을 스테이징했을 때, 스테이징을 취소하는 방법
+    -. git 파일을 스테이지에 add 
+      : git add git_info.txt
+    -. 스테이징 된 파일을 취소
+      : git reset HEAD git_info.txt
+        Unstaged changes after reset:
+    -. git status 명령으로 git 파일 상태를 보면 스테이지에 올라가기전으로 돌아온것을 확인 할 수 있다.
+  3) 최신 커밋 되돌리기 - git reset HEAD
+    -. 파일 수정 내역 git commit 명령으로 스테이징과 커밋을 함께 실행.
+      : git commit -am "message "
+    -. git log 로 commit 메세지 확인
+      : 예시
+         $ git log
+         commit c125ba05b2f7b8704707fa2607586b3d752c5a95 (HEAD -> master)
+         Author: jhkim <jhkim2404@gmail.com>
+         Date:   Sun Jul 3 14:29:05 2022 +0900
+             jhkim git reset test
+         commit 4aa77d5511501fc79e00e42bfa1358cabd32c9b2
+         Author: jhkim <jhkim2404@gmail.com>
+         Date:   Sun Jul 3 14:16:51 2022 +0900
+             jhkim add chceckout:
+    -. 최신버전으로 되돌리려면 git reset 명령 다음에 HEAD^ 를 붙인다. 
+       HEAD^ 는 현재 가리키는 브랜치의 최신 커밋을 가리킵니다.
+       git log 명령을 실행했을 때 가장 최신 커밋에(HEAD -> master) 표시가 있던 것을 기억할 것입니다.
+       이렇게 되돌리면 커밋도 취소되고 스테이지에서도 내려집니다. 취소한 파일이 작업트리에 남는 것이다.
+    -. 커밋 취소 메세지 확인
+      :  git reset HEAD^
+         Unstaged changes after reset:
+  4) 특정 커밋으로 되돌리기 - git reset 커밋해시
+    -. git에는 파일을 수정하고 커밋할 때마다 저장된 버전들이 쌓여 있음
+    -. 최신 커밋을 되돌릴 수도 있지만 특정 버전으로 되돌린 다음 그 이후 버전을 삭제할 수도 있음
+    -. 특정 커밋으로 되돌릴 때는 git reset 명령 다음에 커밋 해시를 사용함.
+    -. reset 커밋 해시를 이용해 되돌릴 때 주의할 점.
+      : reset A를 입력한다면 이 명령은 A 커밋을 리셋한 것이 아니라 최근 커밋 A를 리셋한다.
+      : 즉, A 커밋을 삭제하는 것이 아니라 A 커밋 이후에 만들었던 커밋을 삭제하고, A 커밋으로 이동하겠다는 의미이다.
+    -. git log에서 해시를 복사하여 git reset --hard 명령 뒤에 붙여 넣어 실행
+      : get reset --hard 복사한 커밋 해시
+      : 예시
+        $ git reset --hard 5f2950efbab1382322c803ef9e7d6ed9ecf846b9 
+        HEAD is now at 5f2950e jhkim 2022-07-02 13:27 update
+    -. git log 명령을 사용해서 로그 목록을 살펴 보면 의도했던 앞의 메세지는 삭제되고 커밋 해시를 복사했던 커밋이 
+       최신 커밋이 되어 있다.
+    -. 파일 및 파일 내용도 복사해던 커밋 시점으로 되돌아 가 있다.
+   
