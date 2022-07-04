@@ -1,0 +1,9 @@
+[submodule "manual-4"]
+	path = manual-4
+	url = C:/gittemp
+[submodule "st"]
+	path = st
+	url = C:/gittemp
+[submodule "test"]
+	path = test
+	url = C:/gittemp
