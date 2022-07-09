@@ -23,6 +23,13 @@
           origin  git@github.com:jhkim2404/gittemp.git (push)
 
     2. 개인 컴퓨터에서 작업하고 올리기
+       -. gittemp 디렉토리에서 작업후 저장소에 git commit > git push 명령 사용해 원격저장소에 올립니다.
+         : 예시
+            $ git add github_use.txt
+            $ git commit -m " git clone add "
+            $ git push
+       
+
     3. 회사 컴퓨터에서 내려받아 작업하기
 
   5.2. 원격 브랜치 정보 가져오기
