@@ -50,7 +50,33 @@
     1. 원격 저장소에 파일 올리기 - git push
       -. 먼저 지역 저장소의 커밋을 원격 저장소로 보내는 푸시를 알아보겠습니다. 원격 저장소에 처음 접속할 때 나타나는 
         내용 중 두번째 항목이 바로 푸시하라는 명령입니다. 직접 사용해 보겠습니다.
-       
-    2. 
+      -. 터미널 창에서 다음과 같이 입력하세요. 지역 저장소의 브랜치를 origin, 즉 원격 저장소의 master 브랜치로 푸시하라는 명령입니다.
+        여기에서 '-u' 옵션은 지역 저장소의 브랜치를 원격 저장소의 master 브랜치에 연결하기 위한 것으로 처음에 한 번만 사용하면 됩니다.
+        : 예시
+         $ git push -u origin master
+         error: src refspec master does not match any
+         error: failed to push some refs to 'https://github.com/jhkim2404/gittemp.git'
+      -. error: src refspec master does not match any 에러 발생의 원인 push 명령어 뒤에 master 브랜치를 추가 해서이다.
+         저장소는 origin이 맞지만 브랜치는 없기 때문이다. 
+        : 예시 
+         $ git push -u origin
+         Enumerating objects: 12, done.
+         Counting objects: 100% (12/12), done.
+         Delta compression using up to 12 threads
+         Compressing objects: 100% (10/10), done.
+         Writing objects: 100% (10/10), 1.94 KiB | 991.00 KiB/s, done.
+         Total 10 (delta 5), reused 0 (delta 0), pack-reused 0
+         remote: Resolving deltas: 100% (5/5), completed with 1 local object.
+         To https://github.com/jhkim2404/gittemp.git
+            b3a719a..e24d8d1  main -> main
+         branch 'main' set up to track 'origin/main'.
+
+    2. 깃허브 사이트에서 직접 커밋하기
+
+    3. 원격 저장소에서 파일 내려받기 - git pull
+      -. 원격 저장소에 있는 소스 파일을 다른 사용자가 수정했거나 깃허브 사이트에서 직접 커밋하면 지역 저장소와 차이가 생깁니다.
+        이럴 때는 원격 저장소와 지역 저장소의 상태를 같게 만들기 위해 원격 저장소의 소소를 지역 저장소로 가져옵니다.
+        이것을 'PULL 한다' 라고 합니다.
+      -. 
 
   4.5 깃허브에 SSH 원격 접속하기
