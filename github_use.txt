@@ -95,8 +95,140 @@
          origin/main는 원격 저장소의 최종 커밋이라는 뜻입니다.
       -. 아직 git_clone 디렉토리가 원격 저장소를 복제한 상태 그대로이기 때문에 지역 저장소와 원격 저장소 모두의 최종 커밋이 같습니다.
       -. git_clione 디렉토리에 새로운 커밋을 만들어 보겠습니다.
+<<<<<<< HEAD
+=======
+      -. git log --oneline 명령을 사용해 커밋 로그를 한눈에 확인 해 보겠습니다.
+        (HEAD -> main)은 방금 커밋한 test.txt 파일을 가르킵니다. 지역 저장소의 최종 커밋이 test.txt 커밋이라는 뜻입니다.
+        하지만 (origin/main, origin/HEAD)는 아직 이전 파일을 가리키고 있습니다. 
+        : 예시
+          jhkim@DESKTOP-HVM9KTK MINGW64 /c/git_clone (main)
+          $ git log --oneline
+          035cf50 (HEAD -> main) test.txt add
+          6cb555f (origin/main, origin/HEAD) both modified why?
+          2d740bc git branch commit
+          6b0fd5d add
+      -. 이상태에서 git status 명령을 사용해 보면,
+         현재 master 브랜치가 origin에 있는 원격 master 브랜치의 버전보다 하나 앞서 잇는 것을 알 수 있습니다.
+         그리고 git push 명령으로 지역 저장소의 커밋을 원격 저장소로 올리라고 알려줍니다.
+        : 예시
+          $ git status
+          On branch main
+          Your branch is ahead of 'origin/main' by 1 commit.
+            (use "git push" to publish your local commits)
+      -. 이제 git push 명령을 사용해서 test.txt 커밋을 원격 저장소에 올립니다. 그리고나서 커밋 로그를 확인해 봅니다.
+      -. PUSH 하기전까지 master 브랜치와 origin/master 브랜치가 가리키는 커밋이 달랐지만, push 한 후에는 master와 origin/master 브랜치가
+         같은 커밋을 가리키게 됩니다.
+        : 예시
+          jhkim@DESKTOP-HVM9KTK MINGW64 /c/git_clone (main)
+          $ git push
+          Enumerating objects: 4, done.
+          Counting objects: 100% (4/4), done.
+          Delta compression using up to 12 threads
+          Compressing objects: 100% (2/2), done.
+          Writing objects: 100% (3/3), 271 bytes | 271.00 KiB/s, done.
+          Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+          remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+          To github.com:jhkim2404/gittemp.git
+             6cb555f..035cf50  main -> main
+
+          jhkim@DESKTOP-HVM9KTK MINGW64 /c/git_clone (main)
+          $ git log --oneline
+          035cf50 (HEAD -> main, origin/main, origin/HEAD) test.txt add
+          6cb555f both modified why?
+          2d740bc git branch commit
+>>>>>>> cfe579c19a59cc6c3c386fbc61972686d23494b2
 
     2. 원격 브랜치 정보 가져오기 - git fetch
+      -. 패치(fetch)는 '불러오다, 가져오다' 라는 뜻입니다. 그래서 git fetch 명령은 원격 저장소의 정보를 가져오는 기능이 있습니다.
+      -. pull 명령이 원격 저장소의 커밋을 가져와서 무조건 지역 저장소와 합친다면, 패치 명령은 원격 브랜치에 어떤 변화가 있는지 그정보만 가져옵니다.
+      -. 팀 작업을 할 때 다른 사람이 수정한 소스를 한번 더 훑어보고 지역 저장소와 합치고 싶다면 pull 대신 fetch를 사용해서 커밋을 가져온 다음
+         지역 저장소와 합치면 됩니다.
+      -. 회사 컴퓨터 저장소로 이동해서 진행하겠습니다.
+        : 예시
+           jhkim@DESKTOP-HVM9KTK MINGW64 /c/git_clone (main)
+           $ cd /c/git_clone_office/
+
+           jhkim@DESKTOP-HVM9KTK MINGW64 /c/git_clone_office (main)
+           $ git fetch
+           remote: Enumerating objects: 17, done.
+           remote: Counting objects: 100% (17/17), done.
+           remote: Compressing objects: 100% (9/9), done.
+           remote: Total 15 (delta 10), reused 10 (delta 5), pack-reused 0
+           Unpacking objects: 100% (15/15), 3.41 KiB | 94.00 KiB/s, done.
+           From github.com:jhkim2404/gittemp
+              da0daef..9e8ac01  main       -> origin/main
+
+           jhkim@DESKTOP-HVM9KTK MINGW64 /c/git_clone_office (main)
+           $ ls -al
+           total 87
+           drwxr-xr-x 1 jhkim 197609     0 Jul  9 12:17 ./
+           drwxr-xr-x 1 jhkim 197609     0 Jul  9 12:08 ../
+           drwxr-xr-x 1 jhkim 197609     0 Jul  9 12:28 .git/
+           -rw-r--r-- 1 jhkim 197609   163 Jul  9 12:08 .gitmodules
+           -rw-r--r-- 1 jhkim 197609    11 Jul  9 12:08 README.md
+           drwxr-xr-x 1 jhkim 197609     0 Jul  9 12:08 branch_test/
+           -rw-r--r-- 1 jhkim 197609 27239 Jul  9 12:08 git_branch_info.txt
+           -rw-r--r-- 1 jhkim 197609 14985 Jul  9 12:08 git_github_info.txt
+           -rw-r--r-- 1 jhkim 197609 14045 Jul  9 12:08 git_info.txt
+           -rw-r--r-- 1 jhkim 197609  3906 Jul  9 12:21 github_use.txt
+           -rw-r--r-- 1 jhkim 197609    28 Jul  9 12:08 hello.txt
+           drwxr-xr-x 1 jhkim 197609     0 Jul  9 12:08 manual-2/
+           drwxr-xr-x 1 jhkim 197609     0 Jul  9 12:08 manual-3/
+           drwxr-xr-x 1 jhkim 197609     0 Jul  9 12:08 manual-4/
+           drwxr-xr-x 1 jhkim 197609     0 Jul  9 12:08 st/
+
+           jhkim@DESKTOP-HVM9KTK MINGW64 /c/git_clone_office (main)
+           $ git log --oneline
+           da0daef (HEAD -> main) Merge branch 'main' of github.com:jhkim2404/gittemp
+           aa80426 finished
+           76d57b3 office add
+           9294814  git clone add
+           29ad03a  git clone add
+           9efa296 github info update
+           47efe74  gethub ssh connect mothod add
+           6abd01a github push test
+           ca1acac Update git_github_info.txt
+           975bce6 git pull test
+           e24d8d1 Merge branch 'main' of https://github.com/jhkim2404/gittemp
+           1c05e9d test commit
+           38e9bdb  github add
+           b3a719a Create README.md
+           3eee24e github info txt add
+           0bf376d test commited
+           614c5e6  git submodule add path filename
+           953f049 git branch info txt update
+           dd23586 jhkim doc update
+           ea7d983 jhkim git revert test
+           0b75f01 Revert "jhkim 2022-07-02 13:27 update"
+           e2615bd jhkim git reset hash
+           5f2950e jhkim 2022-07-02 13:27 update
+           474e03e jhkim 2022-07-02 doc create
+
+      -. ls -al 명령을 사용해서 어떤 파일이 있는지 살펴 보세요.
+        분명히 원격 저장소에 있던 커밋을 가져왔는데 git_clone 디렉토리에서 원격 저장소로 푸시했던 test.txt 파일이 보이지 않습니다.
+      -. git log 명령을 사용해서 살펴보면, 커밋 해시 오른쪽을 보면 (HEAD -> main)만 보이고 원격 저장소의 origin/master는 보이지 않습니다.
+        원격 저장소의 최신 커밋 정보를 가져왔지만 아직 지역 저장소에 합치지 않아 원래 git_office에 있던 최신 커밋만 나타나기 때문입니다.
+      -. git status 명령으로 확인해 보면 현재 브랜치가 origin/main에 비해 5개 커밋이 뒤처져 있다고 나옵니다. 즉 원격 저장소의 최신 커밋 하나가 
+        지역 저장소에 반영되지 않았다는 뜻입니다. git pull 명령을 사용하면 지역 저장소를 업데이트할 수 있다고 알려 줍니다.
+        : 예시
+          $ git status
+          On branch main
+          Your branch is behind 'origin/main' by 5 commits, and can be fast-forwarded.
+            (use "git pull" to update your local branch)
+       -. 그렇다면 패치로 가져온 최신 커밋 정보는 어디에 있을까요? 패치로 가져온 원격 저장소 정보는 origin/master 브랜치가 아닌 FETCH_HEAD라는 
+          브랜치로 가져옵니다. 이 브랜치로 가져온 정보는 지역 저장소에 바로 반영되지 않습니다.
+       -. 패치해서 가져온 최신 커밋을 살펴보고 싶다면 FETCH_HEAD 브랜치로 체크아웃해서 확인 합니다.
+         : git checkout FETCH_HEAD
+       -. FETCH_HEAD 브랜치에서 git log 명령어를 사용해 보면 최신커밋에  origin/main, origin/HEAD가 표시되어 있습니다.
+          즉, 이 커밋이 패치로 가져온 원격 브랜치의 최신 커밋입니다
+          이 내용을 살펴보고 원격 브랜치의 최신 커밋을 지역 저장소에 합칠지 말지를 결정하면 됩니다.
+       -. 패치한 후에 최신 커밋을 현재 브랜치에 합치려면 git pull 명령을 사용해서 원격 저장소의 소스를 내려받을 수도 있고,
+          git merge 명령으로 FETCH_HEAD에 있던 커밋을 병합할 수도 있습니다.
+          여기에서는 git merge 명령으로 병합해 보겠습니다. master 브랜치로 이동한 뒤 병합하세요.
+          : git checkout master
+            git merge FETCH_HEAD
+       -. git log 명령을 사용해서 커밋 로그를 확인해 보세요. 최신 커밋이 지역 저장소에 반영된 것을 볼 수 있습니다.
+
 
   5.3. 협업의 기본 알아보기
 
