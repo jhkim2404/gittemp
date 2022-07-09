@@ -202,4 +202,4 @@
       : git remote add origin git@github.com:jhkim2404/gittemp.git
       : error: remote origin already exists. 오류 메세지 발생 git remote rm origin 명령으로 삭제 후 다시 등록한다.
     10. 오류 메세지 없이 프롬프트($)가 표시되면 정상적으로 연결된 것입니다.
-    11. 
+    11. git remote 명령어 뒤에 -v 옵션을 붙여서 어떤 원격 저장소가 연결 되었는지 확인할 수 있습니다.
